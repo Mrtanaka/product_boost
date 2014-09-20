@@ -23,4 +23,7 @@
 //本編総フレーム数
 #define FLAME_MAX 19800
 
+//リプレイファイル名最長
+#define NAME_MAX 15
+
 #include "struct.h"

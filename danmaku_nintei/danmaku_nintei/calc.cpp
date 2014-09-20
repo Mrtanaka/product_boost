@@ -24,7 +24,7 @@ void calc_main(){//ゲーム中の制御
 
 pad_t padc;//キーコンshotボタン誤変更防止のためのキー情報格納変数
 void calc_title(){//タイトル画面の制御
-	calc_menu(4);
+	calc_menu(5);
 
 	if(CheckStatePad(configpad.shot) == 1){
 		switch(menu_state){
@@ -33,18 +33,23 @@ void calc_title(){//タイトル画面の制御
 			se_flag[3]=1;
 			func_state = 7;
 			break;
-		case 1://キーコンフィグへ
+		case 1://リプレイファイル選択へ
+			menu_state = 0;
+			se_flag[3]=1;
+			func_state = 11;
+			break;
+		case 2://キーコンフィグへ
 			menu_state = 0;
 			se_flag[3]=1;
 			padc.key[configpad.shot] = 2;//shot押下フレームを2にしてshotボタン即変更の防止
 			func_state = 5;
 			break;
-		case 2://マニュアルへ
+		case 3://マニュアルへ
 			menu_state = 0;
 			se_flag[3]=1;
 			func_state = 6;
 			break;
-		case 3://ゲーム終了
+		case 4://ゲーム終了
 			menu_state = 0;
 			se_flag[3]=1;
 			shut_flag = 1;//ゲームシャットダウンフラグ立て
@@ -83,7 +88,7 @@ void calc_result(){
 		se_flag[3] = 1;
 
 	if(count >= 330){
-		calc_menu(3);
+		calc_menu(4);
 
 		if(CheckStatePad(configpad.shot) == 1){
 			switch(menu_state){
@@ -92,17 +97,24 @@ void calc_result(){
 				se_flag[3]=1;
 				func_state = 9;
 				break;
-			case 1://タイトル
-				menu_state = 0;
-				se_flag[3]=1;
-				replay_flag = 0;
-				func_state = 1;
-				break;
-			case 2://リプレイ
+			case 1://リプレイ
 				menu_state = 0;
 				se_flag[3]=1;
 				replay_flag = 1;
 				func_state = 9;
+				break;
+			case 2://リプレイ保存してタイトル
+				menu_state = 0;
+				se_flag[3]=1;
+				write_replay();
+				replay_flag = 0;
+				func_state = 1;
+				break;
+			case 3://リプレイ保存せずタイトル
+				menu_state = 0;
+				se_flag[3]=1;
+				replay_flag = 0;
+				func_state = 1;
 				break;
 			}
 		}
@@ -190,5 +202,30 @@ void calc_manual(){
 	if(CheckStatePad(configpad.bom) == 1){
 		menu_state = 0;
 		func_state = 1;
+	}
+}
+
+void calc_choosefile(){
+	int file_number = 0;
+	load_replay();
+
+	for(int i = 0; replay_list[i][0] != '\0';i++){
+		++file_number;
+	}
+
+	if(file_number != 0){
+		calc_menu(file_number);
+	}
+	if(CheckStatePad(configpad.bom) == 1){
+		menu_state = 0;
+		func_state = 1;
+	}
+
+	else if(CheckStatePad(configpad.shot) == 1 && file_number != 0){
+		menu_state = 0;
+		se_flag[3] = 1;
+		read_file(replay_list[menu_state]);
+		replay_flag = 1;
+		func_state = 9;
 	}
 }

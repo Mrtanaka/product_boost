@@ -53,4 +53,6 @@ typedef struct{
 	int slow[FLAME_MAX];//低速ボタン
 	int bom[FLAME_MAX];//ボムボタン
 	int rands;//乱数初期値
+	int type;//自機タイプ
+	int stage;//難易度
 }replay_t;

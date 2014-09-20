@@ -43,9 +43,13 @@ void ini(){
 	if(replay_flag == 0){
 		memset(&replay,0,sizeof(replay_t));
 		replay.rands = GetNowCount();
+	}else{
+		stage = replay.stage;
+		type = replay.type;
 	}
 	
 	SRand(replay.rands);//—”İ’è
+	
 
 	spell = 0;
 	spell_flag = 0;

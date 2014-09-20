@@ -70,6 +70,10 @@ int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,i
 				graph_main();
 				count++;
 				break;
+			case 11://ƒŠƒvƒŒƒC“Ç‚İ‚İ
+				calc_choosefile();
+				graph_choosefile();
+				break;
 			default:
 				printfDx("•s–¾‚Èfunc_state\n");
 				break;

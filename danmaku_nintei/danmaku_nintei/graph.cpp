@@ -19,8 +19,17 @@ void graph_ch(){
 		}else{
 			DrawRotaGraphF(ch.x,ch.y,1.0f,0.0f,img_ch[ch.img],TRUE);
 		}
-		if(CheckStatePad(configpad.slow)>0 && ch.slow_flag==0){ //低速移動中なら当たり判定表示
-			DrawRotaGraphF( ch.x, ch.y, 1.0f, 2.0*PI*(count%120)/120, img_etc[0], TRUE );
+		//低速移動中なら当たり判定表示
+		if(ch.slow_flag == 0){//低速禁止されていないか(Spell9以外か)
+			if(replay_flag==1){//リプレイ再生中かで判定の描画条件分岐
+				if(replay.slow[count]>0){
+					DrawRotaGraphF( ch.x, ch.y, 1.0f, 2.0*PI*(count%120)/120, img_etc[0], TRUE );
+				}
+			}else{
+				if(CheckStatePad(configpad.slow)>0){ 
+					DrawRotaGraphF( ch.x, ch.y, 1.0f, 2.0*PI*(count%120)/120, img_etc[0], TRUE );
+				}
+			}
 		}
 	}
 }
@@ -68,9 +77,9 @@ void graph_bullet(){
 //スコアボード表示
 void graph_board_states(){
 //	int i;
-	int graze=ch.graze;
-	int percent=int(ch.percent);
-	int grade=ch.grade;
+	//int graze=ch.graze;
+	//int percent=int(ch.percent);
+	//int grade=ch.grade;
 
 	switch(stage){
 		case 0:
@@ -241,23 +250,27 @@ void graph_title(){
 	graph_back();
 
 	DrawStringToHandle(140,120,"弾幕段位認定",color[0],font[3]);
-	DrawStringToHandle(270,240,"START",color[0],font[1]);
+	DrawStringToHandle(270,190,"START",color[0],font[1]);
+	DrawStringToHandle(270,240,"REPLAY",color[0],font[1]);
 	DrawStringToHandle(220,290,"KEY CONFIG",color[0],font[1]);
 	DrawStringToHandle(260,340,"MANUAL",color[0],font[1]);
 	DrawStringToHandle(280,390,"QUIT",color[0],font[1]);
-	DrawStringToHandle(175,240+(menu_state*50),"→",color[0],font[1]);
+	DrawStringToHandle(175,190+(menu_state*50),"→",color[0],font[1]);
 
 	switch(menu_state){
 		case 0:
 			DrawStringToHandle(255,450,"ゲームを開始します",color[0],font[2]);
 			break;
 		case 1:
-			DrawStringToHandle(190,450,"パッドの各種ボタン設定を変更します",color[0],font[2]);
+			DrawStringToHandle(245,450,"リプレイを再生します",color[0],font[2]);
 			break;
 		case 2:
-			DrawStringToHandle(165,450,"ゲームのルールや操作方法などを表示します",color[0],font[2]);
+			DrawStringToHandle(190,450,"パッドの各種ボタン設定を変更します",color[0],font[2]);
 			break;
 		case 3:
+			DrawStringToHandle(165,450,"ゲームのルールや操作方法などを表示します",color[0],font[2]);
+			break;
+		case 4:
 			DrawStringToHandle(255,450,"ゲームを終了します",color[0],font[2]);
 			break;
 	}
@@ -382,10 +395,11 @@ void graph_result(){
 	}
 
 	if(count >= 330){
-		DrawStringToHandle(155,350,"もう一度挑戦する",color[0],font[0]);
-		DrawStringToHandle(160,390,"タイトルに戻る",color[0],font[0]);
-		DrawStringToHandle(160,430,"リプレイの再生",color[0],font[0]);
-		DrawStringToHandle(140,350+(menu_state*40),"→",color[0],font[0]);
+		DrawStringToHandle(155,320,"もう一度挑戦する",color[0],font[0]);
+		DrawStringToHandle(160,360,"リプレイの再生",color[0],font[0]);
+		DrawStringToHandle(145,400,"リプレイ保存して終了",color[0],font[0]);
+		DrawStringToHandle(140,440,"リプレイ保存せずに終了",color[0],font[0]);
+		DrawStringToHandle(130,320+(menu_state*40),"→",color[0],font[0]);
 
 		if(ch.grade>=100.0){
 			switch(stage){
@@ -650,4 +664,22 @@ void graph_manual(){
 			break;
 	}
 	DrawFormatStringToHandle(590,460,color[0],font[2],"P %d/7",menu_state+1);
+}
+
+void graph_choosefile(){
+	graph_back();
+	int file_number = 0;
+
+	for(int i = 0; replay_list[i][0] != '\0';i++){
+		++file_number;
+	}
+
+	if(file_number == 0){
+		DrawStringToHandle(80,10,"リプレイファイルがないです",color[0],font[0]);
+	}else{
+		for(int i = 0;i < file_number;i++){
+			DrawFormatString(100,100+(i*20),color[0],"%s",replay_list[i]);
+		}
+		DrawStringToHandle(80,100+(menu_state*20),"→",color[0],font[0]);
+	}
 }

@@ -34,6 +34,7 @@ GLOBAL int spell_flag;				//スペル取得しているかのフラグ
 GLOBAL int sg_flag;					//スペル取得時の表示用フラグ
 GLOBAL int spell;					//スペル取得枚数
 GLOBAL int replay_flag;				//リプレイ再生かどうか
+GLOBAL char replay_list[10][NAME_MAX];//リプレイファイル一覧
 
 //その他の変数
 GLOBAL int color[10],font[5];//色 フォント

@@ -17,6 +17,7 @@
 	GLOBAL void graph_type();
 	GLOBAL void graph_key();
 	GLOBAL void graph_manual();
+	GLOBAL void graph_choosefile();
 
 //calc.cpp
 	GLOBAL void calc_main();
@@ -27,6 +28,7 @@
 	GLOBAL void calc_type();
 	GLOBAL void calc_key();
 	GLOBAL void calc_manual();
+	GLOBAL void calc_choosefile();
 
 //ini.cpp
 	GLOBAL void first_ini();
@@ -60,3 +62,8 @@
 
 //out.cpp
 	GLOBAL void out_main();
+
+//file.cpp
+	GLOBAL void write_replay();
+	GLOBAL void load_replay();
+	GLOBAL void read_file(char *file_name);
