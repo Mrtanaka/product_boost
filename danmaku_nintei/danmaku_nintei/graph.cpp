@@ -2,10 +2,10 @@
 
 extern void draw_fps(int,int);
 
-int DrawRotaGraphD( double xd, double yd, double ExRate, double Angle, int GrHandle, int TransFlag, int TurnFlag = FALSE  ) {
+int DrawRotaGraphF( double xd, double yd, double ExRate, double Angle, int GrHandle, int TransFlag, int TurnFlag = FALSE  ) {
 	return DrawRotaGraphF((float)xd,(float)yd,ExRate,Angle,GrHandle,TransFlag,TurnFlag);
 }
-int DrawModiGraphD( double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, int GrHandle, int TransFlag ){
+int DrawModiGraphF( double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, int GrHandle, int TransFlag ){
 	return DrawModiGraphF( (float)x1, (float)y1, (float)x2, (float)y2, (float)x3, (float)y3, (float)x4, (float)y4, GrHandle, TransFlag ) ;
 }
 
@@ -15,12 +15,12 @@ void graph_ch(){
 		if(ch.bcnt > 0){
 			double rand = 2.0;
 			double ang = PI2/(ch.bcnt%6);
-			DrawRotaGraphD( ch.x+(rand*cos(ang)), ch.y+(rand*sin(ang)), 1.0f, 0.0f, img_ch[ch.img], TRUE );
+			DrawRotaGraphF( ch.x+(rand*cos(ang)), ch.y+(rand*sin(ang)), 1.0f, 0.0f, img_ch[ch.img], TRUE );
 		}else{
-			DrawRotaGraphD(ch.x,ch.y,1.0f,0.0f,img_ch[ch.img],TRUE);
+			DrawRotaGraphF(ch.x,ch.y,1.0f,0.0f,img_ch[ch.img],TRUE);
 		}
 		if(CheckStatePad(configpad.slow)>0 && ch.slow_flag==0){ //低速移動中なら当たり判定表示
-			DrawRotaGraphD( ch.x, ch.y, 1.0f, 2.0*PI*(count%120)/120, img_etc[0], TRUE );
+			DrawRotaGraphF( ch.x, ch.y, 1.0f, 2.0*PI*(count%120)/120, img_etc[0], TRUE );
 		}
 	}
 }
@@ -30,7 +30,7 @@ void graph_bom(){
 	if(ch.bcnt > 0){
 		double rand = 2.0;
 		double ang = PI2/(ch.bcnt%6);
-		DrawRotaGraphD(ch.x+(rand*cos(ang)),ch.y+(rand*sin(ang)),1.0f,0.0f,img_bom,TRUE);
+		DrawRotaGraphF(ch.x+(rand*cos(ang)),ch.y+(rand*sin(ang)),1.0f,0.0f,img_bom,TRUE);
 	}
 }
 
@@ -40,9 +40,9 @@ void graph_enemy(){
 		if(ch.bcnt > 0){
 			double rand = 2.0;
 			double ang = PI2/(ch.bcnt%6);
-			DrawRotaGraphD( enemy.x+(rand*cos(ang)), enemy.y+(rand*sin(ang)), 1.0f, 0.0f, img_enemy[enemy.img], TRUE );
+			DrawRotaGraphF( enemy.x+(rand*cos(ang)), enemy.y+(rand*sin(ang)), 1.0f, 0.0f, img_enemy[enemy.img], TRUE );
 		}else{
-			DrawRotaGraphD( enemy.x, enemy.y, 1.0f, 0.0f, img_enemy[enemy.img], TRUE );
+			DrawRotaGraphF( enemy.x, enemy.y, 1.0f, 0.0f, img_enemy[enemy.img], TRUE );
 		}
 	}
 }
@@ -56,7 +56,7 @@ void graph_bullet(){
 		if(bullet[j].flag!=0){//弾データがオンなら
 			disp_angle=bullet[j].angle+PI/2;
 
-			DrawRotaGraphD(bullet[j].x, bullet[j].y, 1.0, disp_angle,
+			DrawRotaGraphF(bullet[j].x, bullet[j].y, 1.0, disp_angle,
 				img_bullet[bullet[j].knd][bullet[j].col],TRUE);
 		}
 	}
