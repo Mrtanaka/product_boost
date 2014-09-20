@@ -12,17 +12,19 @@ double ave;
 void fps_wait(){
     int term,i,gnt;
     static int t=0;
+
+    gnt=GetNowCount();
     if(fps_count==0){//60フレームの1回目なら
         if(t==0)//完全に最初ならまたない
             term=0;
         else//前回記録した時間を元に計算
-            term=count0t+1000-GetNowCount();
+            term=count0t+1000-gnt;
     }
     else    //待つべき時間=現在あるべき時刻-現在の時刻
-        term = (int)(count0t+fps_count*(1000.0/FLAME))-GetNowCount();
+        term = (int)(count0t+fps_count*(1000.0/FLAME))-gnt;
     if(term>0)//待つべき時間だけ待つ
         Sleep(term);
-    gnt=GetNowCount();
+
     if(fps_count==0)//60フレームに1度基準を作る
         count0t=gnt;
     f[fps_count]=gnt-t;//１周した時間を記録
