@@ -3,10 +3,10 @@
 extern void draw_fps(int,int);
 
 int DrawRotaGraphD( double xd, double yd, double ExRate, double Angle, int GrHandle, int TransFlag, int TurnFlag = FALSE  ) {
-	return DrawRotaGraphD((float)xd,(float)yd,ExRate,Angle,GrHandle,TransFlag,TurnFlag);
+	return DrawRotaGraphF((float)xd,(float)yd,ExRate,Angle,GrHandle,TransFlag,TurnFlag);
 }
 int DrawModiGraphD( double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, int GrHandle, int TransFlag ){
-	return DrawModiGraphD( (float)x1, (float)y1, (float)x2, (float)y2, (float)x3, (float)y3, (float)x4, (float)y4, GrHandle, TransFlag ) ;
+	return DrawModiGraphF( (float)x1, (float)y1, (float)x2, (float)y2, (float)x3, (float)y3, (float)x4, (float)y4, GrHandle, TransFlag ) ;
 }
 
 //Ž©‹@•`‰æ
